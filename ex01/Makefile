@@ -1,8 +1,8 @@
-EXECUTABLE := easyFind
-INCLUDES = easyfind.hpp
+EXECUTABLE := RPN
+INCLUDES = RPN.hpp
 CPP = c++
 OBJ_DIR = obj
-SRCS = main.cpp
+SRCS = main.cpp RPN.cpp
 
 OBJ = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 
