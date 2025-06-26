@@ -19,48 +19,50 @@ static void trim(std::string &s)
 int main(int argc, char **argv)
 {
 	if (argc != 2)
-	{
-		std::cerr << "Please put proper input1" << std::endl;
-		return 1;
-	}
+		return std::cerr << "Please put proper input1" << std::endl, 1;
 
 	int NumOpDiff = 0;
-	std::string RPN = argv[1];
-	trim(RPN);
-	for (int i = 1; i < RPN.length(); ++i)
+	std::string RPNstr = argv[1];
+	trim(RPNstr);
+	if (RPNstr.length() %2 != 1)
+		return std::cerr << "Please put proper input1" << std::endl, 1;
+	for (int i = 0; i < static_cast<int>(RPNstr.length()); ++i)
 	{
-		char c = RPN[i];
+		char c = RPNstr[i];
 		if (std::isdigit(static_cast<unsigned char>(c)))
-		{
 			++NumOpDiff;
-		}
 		else if (c=='+'||c=='-'||c=='*'||c=='/')
 		{
 			if (NumOpDiff < 2)
-			{
-				std::cerr << "Please put proper input3\n";
-				return 1;
-			}
+				return std::cerr << "Please put proper input3\n", 1;
 			--NumOpDiff;
 		}
 		else
-		{
-			std::cerr << "Please put proper input4\n";
-			return 1;
-		}
-		if (!(RPN[i+1] == '\0' || RPN[i+1] == ' '))
-		{	
-			std::cerr << "Please put proper input5\n";
-			return 1;
-		}
+			return std::cerr << "Please put proper input4\n", 1;
+
+		if (i != static_cast<int>(RPNstr.length() - 1) && RPNstr[i+1] != ' ' && (i%2 == 1))
+			return std::cerr << "Please put proper input5\n", 1;
 		else
 		{
 			i++;
+			if (i >= static_cast<int>(RPNstr.length()))
+				break ;
 		}
 	}
 
 	if (NumOpDiff != 1)
 		return std::cerr << "Please put proper input6\n", 1;
 
+	try
+	{
+		RPNclass::calculate(RPNstr);
+	}catch (const std::exception& e)
+	{
+		std::cerr << e.what();
+		return 1;
+	}
+	// RPNclass rpn;
+	// rpn.calculate();
 	return 0;
+	
 }

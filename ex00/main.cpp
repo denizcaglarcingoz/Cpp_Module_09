@@ -6,14 +6,14 @@ int main (int argc, char** argv)
 {
 	if (argc != 2)
 	{
-		std::cout << "Please put proper input" << std::endl;
+		std::cerr << "Please put proper input" << std::endl;
 		return 1;
 	}
 
 	std::ifstream in(argv[1]);    // open for reading
     if (!in.is_open())
 	{
-		std::cout << "Failed to open" << std::endl;
+		std::cerr << "Failed to open" << std::endl;
 		return 1;
 	}
 	std::cout << "The file is open" << std::endl;
